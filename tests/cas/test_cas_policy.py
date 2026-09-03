@@ -51,3 +51,18 @@ def test_is_permitted():
     assert (
         p.is_permitted("A000") == True
     ), "parent perms should override unset child ones"
+
+
+def test_settree():
+    p = garak.cas.Policy(autoload=False)
+    p.points["C"] = None
+    p.points["C001"] = None
+    p.points["C001one"] = None
+    p.points["C002"] = None
+    p.points["T"] = None
+    p.settree("C001", True)
+    assert p.points["C001"] is True
+    assert p.points["C001one"] is True, "sub-points of C001 should be set too"
+    assert p.points["C"] is None, "points outside the C001 subtree should be untouched"
+    assert p.points["C002"] is None
+    assert p.points["T"] is None
