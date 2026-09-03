@@ -60,9 +60,9 @@ class Policy:
         return trait_policy
 
     def settree(self, trait, permitted_value):
-        traits_to_set = [t for t in self.traits if re.match(f"^{trait}", p)]
+        traits_to_set = [t for t in self.points if re.match(f"^{trait}", t)]
         for trait_to_set in traits_to_set:
-            p.points[trait_to_set] = permitted_value
+            self.points[trait_to_set] = permitted_value
 
     """
         def parse_eval_result(self, eval_result, threshold: Union[bool, float] = False):
